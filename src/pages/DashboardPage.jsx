@@ -1,0 +1,126 @@
+import { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { getProductsPaged } from '../api/productsApi'
+import { getCategories } from '../api/categoriesApi'
+import { useAuth } from '../context/AuthContext'
+import { formatCurrency, stockStatusColor } from '../utils/formatters'
+
+function StatCard({ label, value, sub, accent }) {
+  return (
+    <div className={`card relative overflow-hidden animate-fade-up`}>
+      {accent && (
+        <div className="absolute top-0 right-0 w-20 h-20 bg-acid/5 rounded-full -translate-y-6 translate-x-6" />
+      )}
+      <p className="label">{label}</p>
+      <p className="font-display font-extrabold text-3xl text-white mt-1">{value}</p>
+      {sub && <p className="text-xs text-gray-500 mt-1">{sub}</p>}
+    </div>
+  )
+}
+
+export default function DashboardPage() {
+  const { user, isAdmin } = useAuth()
+  const navigate = useNavigate()
+  const [products, setProducts] = useState([])
+  const [totalProducts, setTotalProducts] = useState(0)
+  const [categories, setCategories] = useState([])
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    Promise.all([getProductsPaged(0, 5), getCategories()])
+      .then(([prodRes, catRes]) => {
+        setProducts(prodRes.data.content || [])
+        setTotalProducts(prodRes.data.totalElements || 0)
+        setCategories(catRes.data || [])
+      })
+      .catch(console.error)
+      .finally(() => setLoading(false))
+  }, [])
+
+  const lowStock = products.filter((p) => p.stock <= 5).length
+  const username = user?.sub || user?.username || 'usuario'
+
+  return (
+    <div className="space-y-8 animate-fade-in">
+      {/* Greeting */}
+      <div>
+        <h2 className="font-display font-bold text-2xl text-white">
+          Bienvenido, <span className="text-acid">{username}</span> 👋
+        </h2>
+        <p className="text-sm text-gray-500 mt-1">
+          Aquí tienes un resumen del estado actual del inventario.
+        </p>
+      </div>
+
+      {/* Stats */}
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <StatCard
+          label="Total de productos"
+          value={loading ? '—' : totalProducts}
+          sub="en el sistema"
+          accent
+        />
+        <StatCard
+          label="Categorías"
+          value={loading ? '—' : categories.length}
+          sub="registradas"
+        />
+        <StatCard
+          label="Stock crítico"
+          value={loading ? '—' : lowStock}
+          sub="productos con stock ≤ 5"
+        />
+      </div>
+
+      {/* Recent products */}
+      <div className="card">
+        <div className="flex items-center justify-between mb-4">
+          <h3 className="font-display font-bold text-white">Últimos productos</h3>
+          <button
+            onClick={() => navigate('/products')}
+            className="text-xs text-acid hover:underline font-mono"
+          >
+            Ver todos →
+          </button>
+        </div>
+
+        {loading ? (
+          <div className="space-y-3">
+            {[1, 2, 3].map((i) => (
+              <div key={i} className="h-10 bg-ink-700 rounded-lg animate-pulse2" />
+            ))}
+          </div>
+        ) : products.length === 0 ? (
+          <p className="text-sm text-gray-500 text-center py-8">No hay productos aún.</p>
+        ) : (
+          <table className="w-full">
+            <thead>
+              <tr className="border-b border-ink-600">
+                <th className="table-header text-left pb-2">Producto</th>
+                <th className="table-header text-right pb-2">Precio</th>
+                <th className="table-header text-right pb-2">Stock</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-ink-700">
+              {products.map((p) => (
+                <tr
+                  key={p.id}
+                  className="hover:bg-ink-700/40 cursor-pointer transition-colors duration-100"
+                  onClick={() => navigate(`/products/${p.id}`)}
+                >
+                  <td className="py-3 text-sm text-gray-200">{p.name}</td>
+                  <td className="py-3 text-sm text-right text-gray-400 font-mono">
+                    {formatCurrency(p.price)}
+                  </td>
+                  <td className={`py-3 text-sm text-right font-mono font-500 ${stockStatusColor(p.stock)}`}>
+                    {p.stock}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        )}
+      </div>
+    </div>
+  )
+}
