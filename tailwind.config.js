@@ -10,6 +10,7 @@ export default {
         mono: ['JetBrains Mono', 'monospace'],
       },
       colors: {
+        // Dark mode palette
         ink: {
           950: '#0a0a0f',
           900: '#111118',
@@ -22,40 +23,37 @@ export default {
           dark: '#a8cc1a',
           muted: '#c8f13520',
         },
+        // Light mode palette
         cream: {
-          50:  '#faf8f4',
-          100: '#f4f0e8',
-          200: '#e8e0d0',
-          300: '#d4c8b0',
+          50:  '#fdf8f0',
+          100: '#f5ede0',
+          200: '#e8d9c4',
+          300: '#d4b896',
         },
         navy: {
           DEFAULT: '#1e3a5f',
           light: '#2d5a8e',
           muted: '#1e3a5f20',
         },
-        slate: {
-          muted: '#6b7280',
-          light: '#9ca3af',
-        },
       },
       keyframes: {
         'fade-up': {
-          '0%': { opacity: '0', transform: 'translateY(16px)' },
+          '0%':   { opacity: '0', transform: 'translateY(16px)' },
           '100%': { opacity: '1', transform: 'translateY(0)' },
         },
         'fade-in': {
-          '0%': { opacity: '0' },
+          '0%':   { opacity: '0' },
           '100%': { opacity: '1' },
         },
         pulse2: {
           '0%, 100%': { opacity: '1' },
-          '50%': { opacity: '0.4' },
+          '50%':      { opacity: '0.4' },
         },
       },
       animation: {
         'fade-up': 'fade-up 0.4s ease both',
         'fade-in': 'fade-in 0.3s ease both',
-        pulse2: 'pulse2 1.5s ease infinite',
+        pulse2:    'pulse2 1.5s ease infinite',
       },
     },
   },

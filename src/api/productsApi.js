@@ -20,3 +20,6 @@ export const adjustStock = (id, quantity) =>
 
 export const getMovements = (id) =>
   axiosInstance.get(`/api/products/${id}/movements`)
+
+export const updateProduct = (id, data) =>
+  axiosInstance.put(`/api/products/${id}`, data)

@@ -1,5 +1,7 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import { AuthProvider } from './context/AuthContext'
+import { ThemeProvider } from './context/ThemeContext'
+import { ToastProvider } from './context/ToastContext'
 
 import PrivateRoute from './components/guards/PrivateRoute'
 import AdminRoute from './components/guards/AdminRoute'
@@ -14,31 +16,28 @@ import UsersPage from './pages/UsersPage'
 
 export default function App() {
   return (
-    <AuthProvider>
-      <BrowserRouter>
-        <Routes>
-          {/* Public */}
-          <Route path="/login" element={<LoginPage />} />
-
-          {/* Private (requires token) */}
-          <Route element={<PrivateRoute />}>
-            <Route element={<PrivateLayout />}>
-              <Route path="/dashboard" element={<DashboardPage />} />
-              <Route path="/products" element={<ProductsPage />} />
-              <Route path="/products/:id" element={<ProductDetailPage />} />
-              <Route path="/categories" element={<CategoriesPage />} />
-
-              {/* Admin only */}
-              <Route element={<AdminRoute />}>
-                <Route path="/users" element={<UsersPage />} />
+    <ThemeProvider>
+      <ToastProvider>
+        <AuthProvider>
+          <BrowserRouter>
+            <Routes>
+              <Route path="/login" element={<LoginPage />} />
+              <Route element={<PrivateRoute />}>
+                <Route element={<PrivateLayout />}>
+                  <Route path="/dashboard" element={<DashboardPage />} />
+                  <Route path="/products" element={<ProductsPage />} />
+                  <Route path="/products/:id" element={<ProductDetailPage />} />
+                  <Route path="/categories" element={<CategoriesPage />} />
+                  <Route element={<AdminRoute />}>
+                    <Route path="/users" element={<UsersPage />} />
+                  </Route>
+                </Route>
               </Route>
-            </Route>
-          </Route>
-
-          {/* Fallback */}
-          <Route path="*" element={<Navigate to="/dashboard" replace />} />
-        </Routes>
-      </BrowserRouter>
-    </AuthProvider>
+              <Route path="*" element={<Navigate to="/dashboard" replace />} />
+            </Routes>
+          </BrowserRouter>
+        </AuthProvider>
+      </ToastProvider>
+    </ThemeProvider>
   )
 }
