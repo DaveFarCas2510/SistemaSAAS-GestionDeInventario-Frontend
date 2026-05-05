@@ -71,13 +71,16 @@ export default function ProductsPage() {
     })
   }, [])
 
+
+  useEffect(() => {
+  if (categories.length > 0) fetchProducts()
+  }, [categories])
+
   // Helper: resolve category name from product (handles both object and flat id)
   const getCategoryName = (product) => {
-    if (product.category?.name) return product.category.name
-    if (product.categoryName) return product.categoryName
-    if (product.categoryId && categoryMap[product.categoryId]) return categoryMap[product.categoryId]
-    return '—'
-  }
+  const id = product.category?.id || product.categoryId
+  return categoryMap[id] || product.category?.name || '—'
+}
 
   const validateForm = (f) => {
     if (!f.name.trim()) return 'El nombre es obligatorio.'
@@ -176,7 +179,7 @@ export default function ProductsPage() {
         <div>
           <label className="label">Precio (S/.)</label>
           <input type="number" step="0.01" min="0.01" className="input-field" placeholder="50.00"
-            value={form.price} onChange={(e) => setForm({ ...form, price: e.target.value })} />
+            value={form.price ?? ''} onChange={(e) => setForm({ ...form, price: e.target.value })} />
         </div>
         <div>
           <label className="label">Stock</label>

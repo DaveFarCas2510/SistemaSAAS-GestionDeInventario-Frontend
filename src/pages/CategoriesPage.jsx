@@ -47,8 +47,8 @@ export default function CategoriesPage() {
     <div className="space-y-6 animate-fade-in max-w-2xl">
       <div className="flex items-center justify-between">
         <div>
-          <h2 className="font-display font-bold text-xl text-white">Categorías</h2>
-          <p className="text-sm text-gray-500">Organiza tus productos por categoría</p>
+          <h2 className="font-display font-bold text-xl dark:text-white text-gray-800">Categorías</h2>
+          <p className="text-sm dark:text-gray-500 text-gray-600">Organiza tus productos por categoría</p>
         </div>
         {isAdmin && (
           <button onClick={() => setShowCreate(true)} className="btn-primary">

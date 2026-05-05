@@ -29,14 +29,14 @@ export default function UsersPage() {
   }
 
   return (
-    <div className="space-y-6 animate-fade-in max-w-md">
+    <div className="space-y-6 animate-fade-in flex justify-center">
       <div>
-        <h2 className="font-display font-bold text-xl text-white">Usuarios</h2>
+        <h2 className="font-display font-bold text-xl dark:text-white text-gray-800">Usuarios</h2>
         <p className="text-sm text-gray-500">Crea nuevos usuarios del sistema</p>
       </div>
 
       <div className="card">
-        <h3 className="font-display font-semibold text-white mb-5">Crear usuario</h3>
+        <h3 className="font-display font-semibold dark:text-white text-gray-800 mb-5">Crear usuario</h3>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
             <label className="label">Nombre de usuario</label>
