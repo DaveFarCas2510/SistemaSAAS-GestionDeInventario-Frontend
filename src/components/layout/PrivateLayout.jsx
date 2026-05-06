@@ -7,7 +7,7 @@ export default function PrivateLayout() {
   const [sidebarOpen, setSidebarOpen] = useState(false)
 
   return (
-    <div className="flex h-screen overflow-hidden dark:bg-ink-950 bg-cream-50">
+    <div className="flex h-dvh dark:bg-ink-950 bg-cream-50">
       <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
       <div className="flex-1 flex flex-col min-w-0 overflow-hidden">
   <Topbar onMenuClick={() => setSidebarOpen(true)} />
