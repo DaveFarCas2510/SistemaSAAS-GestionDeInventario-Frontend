@@ -50,19 +50,19 @@ export default function Sidebar({ isOpen, onClose }) {
         isOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0',
       ].join(' ')}>
         {/* Logo */}
-        <div className="px-6 py-6 border-b dark:border-ink-600 border-cream-200">
+        <div className="px-6 py-6 border-b divider">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2.5">
               <div className="w-8 h-8 dark:bg-acid bg-navy rounded-lg flex items-center justify-center">
                 <span className="dark:text-ink-950 text-white font-display font-extrabold text-xs">IN</span>
               </div>
               <div>
-                <span className="font-display font-bold dark:text-white text-gray-800 text-sm tracking-tight">Inventario</span>
-                <p className="text-xs dark:text-gray-600 text-gray-400 font-mono leading-none">Sistema SaaS</p>
+                <span className="font-display font-bold text-heading text-sm tracking-tight">Inventario</span>
+                <p className="text-xs dark:text-gray-600 text-subtle font-mono leading-none">Sistema SaaS</p>
               </div>
             </div>
             {/* Close button mobile */}
-            <button onClick={onClose} className="lg:hidden dark:text-gray-500 text-gray-400 hover:text-gray-700 dark:hover:text-white">
+            <button onClick={onClose} className="lg:hidden text-muted hover:text-gray-700 dark:hover:text-heading">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} className="w-5 h-5">
                 <path d="M18 6L6 18M6 6l12 12"/>
               </svg>
@@ -96,9 +96,9 @@ export default function Sidebar({ isOpen, onClose }) {
         </nav>
 
         {/* User footer */}
-        <div className="px-3 py-4 border-t dark:border-ink-600 border-cream-200">
+        <div className="px-3 py-4 border-t divider">
           <div className="px-3 py-3 rounded-lg dark:bg-ink-800 bg-cream-100 mb-2">
-            <p className="text-xs dark:text-gray-400 text-gray-500 font-mono truncate">
+            <p className="text-xs dark:text-gray-400 text-subtle font-mono truncate">
               {user?.sub || user?.username || 'usuario'}
             </p>
             <span className={isAdmin ? 'badge-admin mt-1' : 'badge-empleado mt-1'}>
@@ -108,7 +108,7 @@ export default function Sidebar({ isOpen, onClose }) {
           <button
             onClick={handleLogout}
             className="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm
-                       dark:text-gray-500 text-gray-400
+                       text-muted
                        hover:text-red-500 dark:hover:bg-red-500/5 hover:bg-red-50
                        transition-all duration-150"
           >

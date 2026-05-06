@@ -58,8 +58,8 @@ export default function ProductDetailPage() {
   if (loading) {
     return (
       <div className="space-y-4 animate-pulse2">
-        <div className="h-8 w-48 bg-ink-700 rounded" />
-        <div className="card h-40 bg-ink-700" />
+        <div className="h-8 w-48 skeleton rounded" />
+        <div className="card h-40 skeleton" />
       </div>
     )
   }
@@ -67,7 +67,7 @@ export default function ProductDetailPage() {
   if (!product) {
     return (
       <div className="text-center py-20">
-        <p className="text-gray-500">Producto no encontrado.</p>
+        <p className="text-subtle">Producto no encontrado.</p>
         <button onClick={() => navigate('/products')} className="btn-ghost mt-4">← Volver</button>
       </div>
     )
@@ -78,7 +78,7 @@ export default function ProductDetailPage() {
       {/* Back */}
       <button
         onClick={() => navigate('/products')}
-        className="flex items-center gap-2 text-sm text-gray-500 hover:text-gray-200 transition-colors"
+        className="flex items-center gap-2 text-sm text-subtle hover:text-body transition-colors"
       >
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} className="w-4 h-4">
           <path d="M19 12H5M12 5l-7 7 7 7" />
@@ -90,8 +90,8 @@ export default function ProductDetailPage() {
       <div className="card">
         <div className="flex items-start justify-between">
           <div>
-            <h2 className="font-display font-bold text-2xl text-white">{product.name}</h2>
-            <p className="text-sm text-gray-500 mt-1 font-mono">
+            <h2 className="font-display font-bold text-2xl text-heading">{product.name}</h2>
+            <p className="text-sm text-subtle mt-1 font-mono">
               ID #{product.id} · {product.category?.name || 'Sin categoría'}
             </p>
           </div>
@@ -100,10 +100,10 @@ export default function ProductDetailPage() {
           </button>
         </div>
 
-        <div className="grid grid-cols-3 gap-4 mt-6 pt-6 border-t border-ink-600">
+        <div className="grid grid-cols-3 gap-4 mt-6 pt-6 border-t divider">
           <div>
             <p className="label">Precio</p>
-            <p className="font-display font-bold text-xl text-white">{formatCurrency(product.price)}</p>
+            <p className="font-display font-bold text-xl text-heading">{formatCurrency(product.price)}</p>
           </div>
           <div>
             <p className="label">Stock actual</p>
@@ -128,15 +128,15 @@ export default function ProductDetailPage() {
 
       {/* Movement history */}
       <div className="card">
-        <h3 className="font-display font-bold text-white mb-4">Historial de movimientos</h3>
+        <h3 className="font-display font-bold text-heading mb-4">Historial de movimientos</h3>
         {movements.length === 0 ? (
-          <p className="text-sm text-gray-500 text-center py-8">Sin movimientos registrados.</p>
+          <p className="text-sm text-subtle text-center py-8">Sin movimientos registrados.</p>
         ) : (
           <div className="space-y-2">
             {movements.map((m, i) => (
               <div
                 key={i}
-                className="flex items-center justify-between px-4 py-3 rounded-lg bg-ink-700/50 border border-ink-600"
+                className="flex items-center justify-between px-4 py-3 rounded-lg skeleton/50 border divider"
               >
                 <div className="flex items-center gap-3">
                   <span className={m.type === 'ENTRY' ? 'badge-entry' : 'badge-exit'}>
@@ -155,7 +155,7 @@ export default function ProductDetailPage() {
                   </div>
                 </div>
                 <div className="text-right">
-                  <p className="text-xs text-gray-500 font-mono">
+                  <p className="text-xs text-subtle font-mono">
                     {m.previousStock} → {m.newStock}
                   </p>
                 </div>
@@ -168,12 +168,12 @@ export default function ProductDetailPage() {
       {/* Adjust Modal */}
       <Modal isOpen={showAdjust} onClose={() => { setShowAdjust(false); setAdjustError('') }} title="Ajustar stock">
         <form onSubmit={handleAdjust} className="space-y-4">
-          <div className="bg-ink-700/50 rounded-lg px-4 py-3 text-sm">
+          <div className="skeleton/50 rounded-lg px-4 py-3 text-sm">
             <span className="text-gray-400">Stock actual: </span>
             <span className={`font-mono font-semibold ${stockStatusColor(product.stock)}`}>{product.stock}</span>
           </div>
           <div>
-            <label className="label">Cantidad (+entrada / −salida)</label>
+            <label className="label">Cantidad (+entrada / -salida)</label>
             <input
               type="number"
               className="input-field"
@@ -188,7 +188,7 @@ export default function ProductDetailPage() {
           </div>
 
           {adjustError && (
-            <p className="text-xs text-red-400 bg-red-500/10 border border-red-500/20 rounded-lg px-3 py-2">
+            <p className="text-xs text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-500/10 border border-red-200 dark:border-red-500/20 rounded-lg px-3 py-2">
               {adjustError}
             </p>
           )}

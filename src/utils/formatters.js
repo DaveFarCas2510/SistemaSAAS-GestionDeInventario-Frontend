@@ -17,7 +17,7 @@ export const formatDate = (dateString) => {
 }
 
 export const stockStatusColor = (stock) => {
-  if (stock === 0) return 'text-red-400'
-  if (stock <= 5) return 'text-yellow-400'
-  return 'text-emerald-400'
+  if (stock === 0) return 'text-red-500 dark:text-red-400'
+  if (stock <= 5) return 'text-yellow-600 dark:text-yellow-400'
+  return 'text-emerald-600 dark:text-emerald-400'
 }

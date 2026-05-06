@@ -5,15 +5,12 @@ import { getCategories } from '../api/categoriesApi'
 import { useAuth } from '../context/AuthContext'
 import { formatCurrency, stockStatusColor } from '../utils/formatters'
 
-function StatCard({ label, value, sub, accent }) {
+function StatCard({ label, value, sub, accent, valueColor }) {
   return (
-    <div className={`card relative overflow-hidden animate-fade-up`}>
-      {accent && (
-        <div className="absolute top-0 right-0 w-20 h-20 bg-acid/5 rounded-full -translate-y-6 translate-x-6" />
-      )}
+    <div className="card relative overflow-hidden animate-fade-up">
       <p className="label">{label}</p>
-      <p className="font-display font-extrabold text-3xl text-white mt-1">{value}</p>
-      {sub && <p className="text-xs text-gray-500 mt-1">{sub}</p>}
+      <p className={`font-display font-extrabold text-3xl mt-1 ${valueColor || 'text-heading'}`}>{value}</p>
+      {sub && <p className="text-xs text-muted mt-1">{sub}</p>}
     </div>
   )
 }
@@ -44,10 +41,10 @@ export default function DashboardPage() {
     <div className="space-y-8 animate-fade-in">
       {/* Greeting */}
       <div>
-        <h2 className="font-display font-bold text-2xl text-white">
+        <h2 className="font-display font-bold text-2xl text-heading">
           Bienvenido, <span className="text-acid">{username}</span> 👋
         </h2>
-        <p className="text-sm text-gray-500 mt-1">
+        <p className="text-sm text-subtle mt-1">
           Aquí tienes un resumen del estado actual del inventario.
         </p>
       </div>
@@ -55,27 +52,29 @@ export default function DashboardPage() {
       {/* Stats */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
         <StatCard
-          label="Total de productos"
-          value={loading ? '—' : totalProducts}
-          sub="en el sistema"
-          accent
-        />
-        <StatCard
-          label="Categorías"
-          value={loading ? '—' : categories.length}
-          sub="registradas"
-        />
-        <StatCard
-          label="Stock crítico"
-          value={loading ? '—' : lowStock}
-          sub="productos con stock ≤ 5"
-        />
+  label="Total de productos"
+  value={loading ? '—' : totalProducts}
+  sub="en el sistema"
+  accent
+  valueColor="text-navy dark:text-acid"
+/>
+<StatCard
+  label="Categorías"
+  value={loading ? '—' : categories.length}
+  sub="registradas"
+/>
+<StatCard
+  label="Stock crítico"
+  value={loading ? '—' : lowStock}
+  sub="productos con stock ≤ 5"
+  valueColor={lowStock > 0 ? 'text-amber-600 dark:text-amber-400' : 'text-heading'}
+/>
       </div>
 
       {/* Recent products */}
       <div className="card">
         <div className="flex items-center justify-between mb-4">
-          <h3 className="font-display font-bold text-white">Últimos productos</h3>
+          <h3 className="font-display font-bold text-heading">Últimos productos</h3>
           <button
             onClick={() => navigate('/products')}
             className="text-xs text-acid hover:underline font-mono"
@@ -87,29 +86,29 @@ export default function DashboardPage() {
         {loading ? (
           <div className="space-y-3">
             {[1, 2, 3].map((i) => (
-              <div key={i} className="h-10 bg-ink-700 rounded-lg animate-pulse2" />
+              <div key={i} className="h-10 skeleton rounded-lg animate-pulse2" />
             ))}
           </div>
         ) : products.length === 0 ? (
-          <p className="text-sm text-gray-500 text-center py-8">No hay productos aún.</p>
+          <p className="text-sm text-subtle text-center py-8">No hay productos aún.</p>
         ) : (
           <table className="w-full">
             <thead>
-              <tr className="border-b border-ink-600">
+              <tr className="border-b divider">
                 <th className="table-header text-left pb-2">Producto</th>
                 <th className="table-header text-right pb-2">Precio</th>
                 <th className="table-header text-right pb-2">Stock</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-ink-700">
+            <tbody className="divide-y divide-rows">
               {products.map((p) => (
                 <tr
                   key={p.id}
-                  className="hover:bg-ink-700/40 cursor-pointer transition-colors duration-100"
+                  className="bg-subtle-hover cursor-pointer transition-colors duration-100"
                   onClick={() => navigate(`/products/${p.id}`)}
                 >
-                  <td className="py-3 text-sm text-gray-200">{p.name}</td>
-                  <td className="py-3 text-sm text-right text-gray-400 font-mono">
+                  <td className="py-3 text-sm text-body">{p.name}</td>
+                  <td className="py-3 text-sm text-right text-subtle font-mono">
                     {formatCurrency(p.price)}
                   </td>
                   <td className={`py-3 text-sm text-right font-mono font-500 ${stockStatusColor(p.stock)}`}>

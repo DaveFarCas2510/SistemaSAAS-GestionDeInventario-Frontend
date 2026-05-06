@@ -29,23 +29,23 @@ export default function UsersPage() {
   }
 
   return (
-    <div className="space-y-6 animate-fade-in flex justify-center">
+    <div className="space-y-6 animate-fade-in max-w-lg mx-auto">
       <div>
-        <h2 className="font-display font-bold text-xl dark:text-white text-gray-800">Usuarios</h2>
-        <p className="text-sm text-gray-500">Crea nuevos usuarios del sistema</p>
+        <h2 className="font-display font-bold text-xl text-heading">Usuarios</h2>
+        <p className="text-sm text-subtle">Crea nuevos usuarios del sistema</p>
       </div>
 
       <div className="card">
-        <h3 className="font-display font-semibold dark:text-white text-gray-800 mb-5">Crear usuario</h3>
+        <h3 className="font-display font-semibold text-heading mb-5">Crear usuario</h3>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
             <label className="label">Nombre de usuario</label>
-            <input className="input-field" placeholder="jdoe" value={form.username}
+            <input className="input-field" placeholder="username" value={form.username}
               onChange={(e) => setForm({ ...form, username: e.target.value })} />
           </div>
           <div>
             <label className="label">Email</label>
-            <input type="email" className="input-field" placeholder="jdoe@empresa.com" value={form.email}
+            <input type="email" className="input-field" placeholder="user@empresa.com" value={form.email}
               onChange={(e) => setForm({ ...form, email: e.target.value })} />
           </div>
           <div>
@@ -62,12 +62,12 @@ export default function UsersPage() {
           </div>
 
           {error && (
-            <p className="text-xs text-red-400 bg-red-500/10 border border-red-500/20 rounded-lg px-3 py-2">
+            <p className="text-xs text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-500/10 border border-red-200 dark:border-red-500/20 rounded-lg px-3 py-2">
               {error}
             </p>
           )}
           {success && (
-            <p className="text-xs text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 rounded-lg px-3 py-2">
+            <p className="text-xs text-emerald-700 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-500/10 border border-emerald-200 dark:border-emerald-500/20 rounded-lg px-3 py-2">
               ✓ {success}
             </p>
           )}
@@ -79,12 +79,12 @@ export default function UsersPage() {
       </div>
 
       {/* Info card */}
-      <div className="rounded-xl border border-ink-600 px-4 py-3 bg-ink-800/50">
-        <p className="text-xs text-gray-500 font-mono">
-          <span className="text-acid">ADMIN</span> → acceso completo al sistema<br />
-          <span className="text-blue-400">EMPLEADO</span> → solo lectura y ajuste de movimientos
-        </p>
-      </div>
+      <div className="rounded-xl border divider px-4 py-3 bg-subtle">
+  <p className="text-xs text-subtle font-mono">
+    <span className="text-acid">ADMIN</span> → acceso completo al sistema<br />
+    <span className="text-blue-400">EMPLEADO</span> → solo lectura y ajuste de movimientos
+  </p>
+</div>
     </div>
   )
 }

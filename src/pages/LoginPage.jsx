@@ -43,8 +43,8 @@ export default function LoginPage() {
       <button
         onClick={toggle}
         className="absolute top-6 right-6 w-9 h-9 flex items-center justify-center rounded-lg
-                   dark:bg-ink-800 bg-white border dark:border-ink-600 border-cream-200
-                   dark:text-gray-400 text-gray-500 hover:scale-110 transition-all duration-200"
+                   dark:bg-ink-800 bg-white border divider
+                   dark:text-gray-400 text-subtle hover:scale-110 transition-all duration-200"
       >
         {isDark ? (
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} className="w-4 h-4">
@@ -59,24 +59,24 @@ export default function LoginPage() {
 
       <div className="relative w-full max-w-sm animate-fade-up">
         {/* Logo */}
-        <div className="flex items-center gap-3 mb-10">
-          <div className="w-10 h-10 dark:bg-acid bg-navy rounded-xl flex items-center justify-center">
-            <span className="dark:text-ink-950 text-white font-display font-extrabold text-sm">IN</span>
-          </div>
-          <div>
-            <p className="font-display font-bold dark:text-white text-gray-800">Inventario</p>
-            <p className="text-xs dark:text-gray-600 text-gray-400 font-mono">Sistema de Gestión</p>
-          </div>
+        <div className="flex items-center justify-center gap-3 mb-10">
+          <div className="w-14 h-14 dark:bg-acid bg-navy rounded-2xl flex items-center justify-center">
+  <span className="dark:text-ink-950 text-white font-display font-extrabold text-sm">IN</span>
+</div>
+<div>
+  <p className="font-display font-bold text-2xl text-heading">Inventario</p>
+  <p className="text-sm dark:text-gray-600 text-subtle font-mono">Sistema de Gestión</p>
+</div>
         </div>
 
         <div className="card">
-          <h2 className="font-display font-bold text-xl dark:text-white text-gray-800 mb-1">Iniciar sesión</h2>
-          <p className="text-sm dark:text-gray-500 text-gray-400 mb-6">Ingresa tus credenciales para continuar.</p>
+          <h2 className="font-display font-bold text-xl text-heading mb-1">Iniciar sesión</h2>
+          <p className="text-sm text-muted mb-6">Ingresa tus credenciales para continuar.</p>
 
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
               <label className="label">Usuario</label>
-              <input className="input-field" placeholder="admin" value={username}
+              <input className="input-field" placeholder="username" value={username}
                 onChange={(e) => setUsername(e.target.value)} autoFocus />
             </div>
             <div>
@@ -99,7 +99,7 @@ export default function LoginPage() {
           </form>
         </div>
 
-        <p className="text-center text-xs dark:text-gray-600 text-gray-400 font-mono mt-6">
+        <p className="text-center text-xs dark:text-gray-600 text-subtle font-mono mt-6">
           David Eduardo Farfán · Ingeniería de Sistemas
         </p>
       </div>

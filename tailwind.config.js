@@ -19,9 +19,9 @@ export default {
           600: '#2e2e40',
         },
         acid: {
-          DEFAULT: '#c8f135',
-          dark: '#a8cc1a',
-          muted: '#c8f13520',
+          DEFAULT: '#a8cc1a',
+          dark: '#8aab0f',
+          muted: '#a8cc1a20',
         },
         // Light mode palette
         cream: {

@@ -9,6 +9,7 @@
     height: 100%;
     margin: 0;
     padding: 0;
+    font-size: 1.2rem;
   }
 
   body {
@@ -158,4 +159,58 @@
   }
   html.dark  .main-bg { @apply bg-ink-950; }
   html.light .main-bg { @apply bg-cream-50; }
+
+  /* ── TEXTOS SEMÁNTICOS ── */
+.text-heading {
+  @apply text-gray-800;
+}
+html.dark .text-heading { @apply text-white; }
+
+.text-body {
+  @apply text-gray-700;
+}
+html.dark .text-body { @apply text-gray-200; }
+
+.text-subtle {
+  @apply text-gray-500;
+}
+html.dark .text-subtle { @apply text-gray-400; }
+
+.text-muted {
+  @apply text-gray-400;
+}
+html.dark .text-muted { @apply text-gray-600; }
+
+/* ── FONDOS SEMÁNTICOS ── */
+.bg-subtle {
+  @apply bg-cream-100;
+}
+html.dark .bg-subtle { @apply bg-ink-700; }
+
+.bg-subtle-hover:hover {
+  @apply bg-cream-100;
+}
+html.dark .bg-subtle-hover:hover { @apply bg-ink-700/40; }
+
+.movement-row {
+  @apply bg-cream-100 border border-cream-200;
+}
+html.dark .movement-row { @apply bg-ink-700/50 border-ink-600; }
+
+/* ── DIVISORES SEMÁNTICOS ── */
+.divider {
+  @apply border-cream-200;
+}
+html.dark .divider { @apply border-ink-600; }
+
+.divide-rows > * + * {
+  @apply border-t border-cream-200;
+}
+html.dark .divide-rows > * + * { @apply border-ink-600; }
+
+/* ── SKELETON LOADERS ── */
+.skeleton {
+  @apply bg-cream-200 animate-pulse2;
+}
+html.dark .skeleton { @apply bg-ink-700; }
 }

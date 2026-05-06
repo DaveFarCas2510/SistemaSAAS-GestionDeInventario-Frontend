@@ -44,11 +44,11 @@ export default function CategoriesPage() {
   }
 
   return (
-    <div className="space-y-6 animate-fade-in max-w-2xl">
+    <div className="space-y-6 animate-fade-in max-w-lg mx-auto">
       <div className="flex items-center justify-between">
         <div>
-          <h2 className="font-display font-bold text-xl dark:text-white text-gray-800">Categorías</h2>
-          <p className="text-sm dark:text-gray-500 text-gray-600">Organiza tus productos por categoría</p>
+          <h2 className="font-display font-bold text-xl text-heading">Categorías</h2>
+          <p className="text-sm dark:text-subtle text-gray-600">Organiza tus productos por categoría</p>
         </div>
         {isAdmin && (
           <button onClick={() => setShowCreate(true)} className="btn-primary">
@@ -61,19 +61,19 @@ export default function CategoriesPage() {
         {loading ? (
           <div className="space-y-px">
             {[1, 2, 3].map((i) => (
-              <div key={i} className="h-14 bg-ink-700/30 animate-pulse2" />
+              <div key={i} className="h-14 skeleton/30 animate-pulse2" />
             ))}
           </div>
         ) : categories.length === 0 ? (
-          <p className="text-sm text-gray-500 text-center py-12">No hay categorías.</p>
+          <p className="text-sm text-subtle text-center py-12">No hay categorías.</p>
         ) : (
-          <ul className="divide-y divide-ink-700">
+          <ul className="divide-y divide-rows">
             {categories.map((c, i) => (
-              <li key={c.id} className="flex items-center gap-4 px-6 py-4 hover:bg-ink-700/30 transition-colors">
+              <li key={c.id} className="flex items-center gap-4 px-6 py-4 hover:skeleton/30 transition-colors">
                 <span className="w-8 h-8 rounded-lg bg-acid/10 flex items-center justify-center text-acid font-display font-bold text-xs">
                   {String(i + 1).padStart(2, '0')}
                 </span>
-                <span className="text-sm text-gray-200 font-500 capitalize">{c.name}</span>
+                <span className="text-sm text-body font-500 capitalize">{c.name}</span>
               </li>
             ))}
           </ul>
@@ -93,7 +93,7 @@ export default function CategoriesPage() {
             />
           </div>
           {error && (
-            <p className="text-xs text-red-400 bg-red-500/10 border border-red-500/20 rounded-lg px-3 py-2">
+            <p className="text-xs text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-500/10 border border-red-200 dark:border-red-500/20 rounded-lg px-3 py-2">
               {error}
             </p>
           )}
