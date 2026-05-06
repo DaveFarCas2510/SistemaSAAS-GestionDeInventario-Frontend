@@ -96,7 +96,7 @@ export default function Sidebar({ isOpen, onClose }) {
         </nav>
 
         {/* User footer */}
-        <div className="px-3 py-4 border-t divider pb-safe">
+        <div className="px-3 py-4 border-t divider" style={{ paddingBottom: 'max(1rem, env(safe-area-inset-bottom))' }}>
           <div className="px-3 py-3 rounded-lg dark:bg-ink-800 bg-cream-100 mb-2">
             <p className="text-xs dark:text-gray-400 text-subtle font-mono truncate">
               {user?.sub || user?.username || 'usuario'}
