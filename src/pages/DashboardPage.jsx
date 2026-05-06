@@ -19,22 +19,25 @@ export default function DashboardPage() {
   const { user, isAdmin } = useAuth()
   const navigate = useNavigate()
   const [products, setProducts] = useState([])
-  const [totalProducts, setTotalProducts] = useState(0)
-  const [categories, setCategories] = useState([])
-  const [loading, setLoading] = useState(true)
+const [totalProducts, setTotalProducts] = useState(0)
+const [categories, setCategories] = useState([])
+const [lowStock, setLowStock] = useState(0)
+const [loading, setLoading] = useState(true)
 
-  useEffect(() => {
-    Promise.all([getProductsPaged(0, 5), getCategories()])
-      .then(([prodRes, catRes]) => {
-        setProducts(prodRes.data.content || [])
-        setTotalProducts(prodRes.data.totalElements || 0)
-        setCategories(catRes.data || [])
-      })
-      .catch(console.error)
-      .finally(() => setLoading(false))
-  }, [])
+useEffect(() => {
+  Promise.all([getProductsPaged(0, 5), getProductsPaged(0, 9999), getCategories()])
+    .then(([prodRes, allRes, catRes]) => {
+      setProducts(prodRes.data.content || [])
+      setTotalProducts(prodRes.data.totalElements || 0)
+      setCategories(catRes.data || [])
+      const all = allRes.data.content || []
+      setLowStock(all.filter(p => p.stock <= 5).length)
+    })
+    .catch(console.error)
+    .finally(() => setLoading(false))
+}, [])
 
-  const lowStock = products.filter((p) => p.stock <= 5).length
+  //const lowStock = products.filter((p) => p.stock <= 5).length
   const username = user?.sub || user?.username || 'usuario'
 
   return (
